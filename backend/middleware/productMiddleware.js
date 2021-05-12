@@ -3,17 +3,18 @@ const Product = require('../models/product')
 
 const getAllProducts = (req, res) => {
     Product
-        .find({}, (err, data) => {
+        .find({}, (err, products) => {
             if(err) console.log(err)
-            if(data) res.json({products: data});
+            if(products) res.json(products);
             else res.json({products: 'dont exist'})
         })
 }
 const getProductById = (req, res) => {
+    var id = req.params.id.replace(":", "")
     Product
-        .find(req.body.id, (err, data) => {
+        .find({id: id}, (err, product) => {
             if(err) console.log(err)
-            if(data) res.json({product: data});
+            if(product) res.json(product);
             else res.json({product: 'dont exist'})
         })
 }
